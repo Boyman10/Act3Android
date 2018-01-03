@@ -5,12 +5,6 @@
     android:layout_height="match_parent"
     >
 
-    <FrameLayout
-        android:id="@+id/rssFrg"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        />
 
     <FrameLayout
         android:id="@+id/viewFrg"
