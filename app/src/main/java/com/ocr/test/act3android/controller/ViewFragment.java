@@ -1,14 +1,17 @@
 package com.ocr.test.act3android.controller;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -54,6 +57,10 @@ public class ViewFragment extends Fragment {
         // being called after onAttach activity and before onCreateview
         super.onCreate(savedInstanceState);
 
+        /**
+         * Enable menu actionbar fragment :
+         */
+        setHasOptionsMenu(true);
 
         Log.i(BUNDLE_WEB_FRG,"onCreate Fragment");
     }
@@ -91,5 +98,42 @@ public class ViewFragment extends Fragment {
 
         Log.i(BUNDLE_WEB_FRG,"End of onViewCreated - WEB View ");
 
+    }
+
+    /**
+     * Overriding onCreateOptionsMenu to allow the use of a menu shared among interfaces (tab or mobile...)
+     * To be used in fragments
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu,menu);
+    }
+
+    /**
+     * Here wee implement the event to track the click on the menu
+     * Works similarly as activities
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent;
+
+        switch(item.getItemId()) {
+
+            case R.id.action_share :
+                    /*DO SHARE*/
+                Log.i(BUNDLE_WEB_FRG,"Sharing something..." + getArguments().getString("link"));
+                myIntent = new Intent(Intent.ACTION_SEND);
+                myIntent.setType("text/plain");
+                myIntent.putExtra(Intent.EXTRA_TEXT, getArguments().getString("link"));
+
+                startActivity(Intent.createChooser(myIntent, "Share now !"));
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -15,7 +15,7 @@ import com.ocr.test.act3android.model.RSSAdapter;
  * @author boy
  * @version 1.0.0
  */
-public class MainActivity extends AppCompatActivity implements RssFragment.OnFragmentInteractionListener,RSSAdapter.URLLoader {
+public class MainActivity extends AppCompatActivity implements RSSAdapter.URLLoader {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +32,7 @@ public class MainActivity extends AppCompatActivity implements RssFragment.OnFra
                 .commit();
     }
 
-    /**
-     * Method from RssFragment to listen to fragment and pass interaction to activity
-     * @param uri
-     */
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
-
-    }
 
 
     /**
