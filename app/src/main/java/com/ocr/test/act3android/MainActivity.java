@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements RssFragment.OnFra
 
     /**
      * Loading the content into the webview
-     * inside the dewdicated fragment if exists or the other activity
+     * inside the dedicated fragment if exists or the other activity
      * @param title
      * @param link
      */

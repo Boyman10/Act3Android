@@ -2,6 +2,7 @@ package com.ocr.test.act3android.controller;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -11,6 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -82,8 +86,16 @@ public class RssFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+
+
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
+            /**
+             * Enable menu actionbar fragment :
+             */
+            setHasOptionsMenu(true);
         }
         Log.i(BUNDLE_RSS_FRG,"Calling onCreate ---");
     }
@@ -198,6 +210,43 @@ public class RssFragment extends Fragment {
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params);
         else
             task.execute(params);
+    }
+
+    /**
+     * Overriding onCreateOptionsMenu to allow the use of a menu shared among interfaces (tab or mobile...)
+     * To be used in fragments
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu,menu);
+    }
+
+    /**
+     * Here wee implement the event to track the click on the menu
+     * Works similarly as activities
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent;
+
+        switch(item.getItemId()) {
+
+            case R.id.action_share :
+                    /*DO SHARE*/
+                Log.i(BUNDLE_RSS_FRG,"Sharing something...");
+                myIntent = new Intent(Intent.ACTION_SEND);
+                myIntent.setType("text/plain");
+                myIntent.putExtra(Intent.EXTRA_TEXT, MY_URL);
+
+                startActivity(Intent.createChooser(myIntent, "Share now !"));
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
